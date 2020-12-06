@@ -1,0 +1,281 @@
+# **一.数据库**
+
+# **1.**
+
+**1.主数据文件后缀:主数据文件有且只有一个。**
+
+**.mdf**
+
+**2.次数据文件后缀:>=0个**
+
+**.ndf**
+
+**3.日志文件ldf,>=1个**
+
+**4.代码文件后缀:sql**
+
+**5.启动数据库:**
+
+**net start mssqlserver**
+
+**5.文件组:用来管理数据库文件;相当于文件夹**
+
+**主文件夹:用于管理主数据文件(primary)**
+
+**主数据文件一定放在主文件组中**
+
+**次数据  可以放在任意文件组中**
+
+**日志文件不适合文件组**
+
+# **2.**
+
+**1.建库:**
+
+**create datebase 数据库名**
+
+**go**
+
+**2.使用数据库:**
+
+**use  dabase0**
+
+**go**
+
+**3.分离数据库:**
+
+```
+exec sp_detach_db_datebase0
+
+go
+   
+```
+
+**4.添加数据库**
+
+```
+exec sp_attach_db_datebase0,'d:\sql.mdf'
+go
+```
+
+**5.删除数据库**
+
+```
+drop  datebase   datebase0
+
+go
+
+```
+
+**6.建表格:一种事物的数据存储到一张表中**
+
+**概念!**
+
+**学生**
+
+**教师**
+
+**班级**
+
+**实体之间可能有三种关系:**
+
+**一对多关系:一个人只能有一张身份证。**
+
+**一对多关系:一个班级有多个学生。**
+
+**多对多关系:多个老师,多个学生。**
+
+**建表:先建主建表**
+
+```
+create table classinfo --班级信息表
+
+```
+
+**int** 
+
+**float**
+
+```
+decimal(10,2)/numberic(10,2),精确值
+money:货币
+char(10)/varchar(10):字符串 =文本类型
+```
+
+
+
+**8.**
+
+```sql
+create table classinfo
+(
+cid int primary key,(主键约束<列不能为空,不能出现),
+cname varchar(20) not null,
+[subject] varchar(20) not null
+
+);
+
+
+```
+
+**9.**
+
+| **id  int identity(1,1) primary key,**             | **系统编号:自己增加1**            |
+| -------------------------------------------------- | --------------------------------- |
+| **stuid int  unique**                              | **学号---唯一约束(允许出现空值)** |
+| **stuname  varchar(20) not null,**                 | **姓名非空**                      |
+| **stuSex char(2) default'男',**                    | **默认为男**                      |
+| **stuAge int check(stuAge>=18),**                  | **年龄:检查约束**                 |
+| **cid int foreign key references classinfo(cid),** | **外键约束或者可以写空值**        |
+
+## **sql中,等于号:就是=**
+
+## **其他一样**
+
+### **<>  与!=   都是不等于**
+
+### **非  not**
+
+### **表示两者之间:between xxx and xxx**
+
+### **表示取某些值:int(A,B,C,D)**
+
+# **10.代码案例**
+
+```
+create database test_9
+on
+(
+name=test_9,
+filename='d:\sql.mdf',
+size=10,
+maxsize=100,
+filegrowth=10%
+)
+```
+
+​                                                                                                     
+
+
+
+# 12.插入!
+
+| insert into Worker<br/>values('1001','张三',default,'111111111','110',default,2),<br/>('1002','李四',default,'222222','120',default,2),<br/>('1003','王五',default,'333333','119',default,2)<br/>go | 插入                                               |
+| ------------------------------------------------------------ | -------------------------------------------------- |
+| **--2）变化写法：可以指定列名<br/>insert into Worker(wid,wname)<br/>values('1004','赵六')<br/>go** | **插入指定列名**                                   |
+| **--3）用insert ....select语句添加数据(不能用default)<br/>insert into Worker<br/>select '1005','王小五','女','555555','119','2019-1-1',3  union<br/>select '1006','王小六','女','444444','119','2019-10-15',3  union<br/>select '1007','王小七','女','666666','119','2019-10-15',3<br/>go** | **用insert ....select语句添加数据(不能用default)** |
+| **--4）select into语句：常用于备份<br/>select *<br/>into worker_new<br/>from worker** | **select into语句：常用于备份<**                   |
+|                                                              |                                                    |
+|                                                              |                                                    |
+|                                                              |                                                    |
+|                                                              |                                                    |
+|                                                              |                                                    |
+|                                                              |                                                    |
+
+
+
+****
+
+# 13.修改 更新数据!
+
+| update Worker<br/>set wsex='女',did=3<br/>go                 | 修改数据     |
+| ------------------------------------------------------------ | ------------ |
+| **update Worker<br/>set wsex='男',did=1<br/>where wid=1000<br/>go** | **修改数据** |
+| **update Worker<br/>set wname='张晓三',wsex='男',wcode='452412198810011234',wphone='120',wtime='2000-1-1',did=5<br/>where wid=1001<br/>go** | **修改数据** |
+|                                                              |              |
+|                                                              |              |
+|                                                              |              |
+|                                                              |              |
+
+
+
+## 查找1.%
+
+```sql
+where titie like '%小%'    查询数据库中 '小'啥都可以!
+```
+
+## 查找2.下划线 _
+
+```sql
+where name like '_abc'(abc 为共有部分 _为未知)
+例如  _志强   查询 王志强 李志强 罗志强
+
+```
+
+## 查找3.[]
+
+### 1.
+
+```
+where name like 'aa[xyz]' ---aax aay aaz 
+```
+
+```
+
+```
+
+### 2.
+
+```
+where name like 'aa[^xyz]' ---除了aax aay aaz  aa任意都可以
+```
+
+### 3.
+
+```
+select top 2 * from product  取最上面两行
+```
+
+```sql
+select top 30 persent *from product 取shangfanf百分之30 !
+```
+
+```sql
+select *from code where code>=1 and code<=5 
+go
+```
+
+```
+select *from product product where pnanme like'%旺%'
+go
+```
+
+
+
+# 14.排序 order by 语句
+
+## 1.
+
+### select * from product order by price desc  name desc --desc 表示降序
+
+### asc 表示升序
+
+价格降序      与      姓名 降序
+
+# 15.分组语句
+
+## 1.计数函数:count(列名)
+
+select (count(*) as 商品数量 from product
+
+go
+
+## 2.求和函数:sum(列名)
+
+select sum(code) as 数量之和 from product
+
+## 3.平均值函数
+
+select avg(price ) as 平均价格 from product 
+
+## 4.最高价格  最低价格
+
+select max(price) as 最高价格 ,min(price ) as 最低价格 from product 
+
+## 5.
+
+**--按照性别对学生进行分组，统计出男生、女生分别有多少人**
+**select seex,COUNT(*)  from stuinfo**
+**group by seex**
+**go**

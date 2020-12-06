@@ -1,0 +1,95 @@
+# 1.表格标签
+
+| 表格     | <table>  </table>    |
+| -------- | -------------------- |
+| 行       | <tr>           </tr> |
+| 列       | <td></td>            |
+| 几行几列 | 几对tr    td         |
+
+``` html
+
+```
+
+## 2.列表格格式.
+
+1.
+
+```
+<table>
+           <tr>
+                         <td>7</td>
+                         <td>7</td>
+                         <td>7</td>
+                         <td>7</td>                   
+          </tr>
+</table>
+```
+
+2.表格空间隔
+
+```
+<table  border="1" cellspacing="0" >
+           <tr>
+                         <td>7</td>
+                         <td>7</td>
+                         <td>7</td>
+                         <td>7</td>                   
+          </tr>
+</table>
+```
+
+3.
+
+| border      | 边框 |
+| ----------- | ---- |
+| cellspacing | 间距 |
+|             |      |
+|             |      |
+
+```
+
+```
+
+4.
+
+| rowspan | 行单元格合并       |
+| ------- | ------------------ |
+| colspan | __与__列单元格合并 |
+|         |                    |
+|         |                    |
+
+```html
+
+```
+
+5.
+
+``` 
+<table  width="400"height="100" border="1">
+<tr>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="2" colspan="2"></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</table>
+
+```
+
+6.
+
+| 视频  video | <video src="李哥.mp4" controls width="760" > </video>        |
+| ----------- | ------------------------------------------------------------ |
+| 音频  audio | <audio src="李哥.mp4" controls autoplay   width="760" > </audio> |
+| 动画 embed  | 二.<embed src=" 文件名" controls autoplay></embed><embed>    |
+|             |                                                              |
+
+``` 
+
+```
+
